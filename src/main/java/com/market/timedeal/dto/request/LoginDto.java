@@ -1,4 +1,4 @@
-package com.market.timedeal.dto;
+package com.market.timedeal.dto.request;
 
 import lombok.Builder;
 import lombok.Data;

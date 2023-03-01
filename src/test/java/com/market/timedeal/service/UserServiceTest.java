@@ -1,7 +1,7 @@
-package com.market.timedeal.domain.user.service;
+package com.market.timedeal.service;
 
 import com.market.timedeal.domain.User;
-import com.market.timedeal.dto.LoginDto;
+import com.market.timedeal.dto.request.LoginDto;
 import com.market.timedeal.repository.UserRepository;
 import com.market.timedeal.service.UserService;
 import org.junit.jupiter.api.Test;

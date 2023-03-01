@@ -2,8 +2,8 @@ package com.market.timedeal.service;
 
 import com.market.timedeal.domain.Role;
 import com.market.timedeal.domain.User;
-import com.market.timedeal.dto.LoginDto;
-import com.market.timedeal.dto.SignUpDto;
+import com.market.timedeal.dto.request.LoginDto;
+import com.market.timedeal.dto.request.SignUpDto;
 import com.market.timedeal.exception.DuplicatedIdException;
 import com.market.timedeal.repository.UserRepository;
 import com.market.timedeal.util.PasswordEncrypter;

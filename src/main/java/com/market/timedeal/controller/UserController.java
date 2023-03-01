@@ -1,8 +1,8 @@
 package com.market.timedeal.controller;
 
 import com.market.timedeal.domain.User;
-import com.market.timedeal.dto.LoginDto;
-import com.market.timedeal.dto.SignUpDto;
+import com.market.timedeal.dto.request.LoginDto;
+import com.market.timedeal.dto.request.SignUpDto;
 import com.market.timedeal.service.UserService;
 import com.market.timedeal.dto.CustomResponseEntity;
 import lombok.RequiredArgsConstructor;

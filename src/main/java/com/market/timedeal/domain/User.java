@@ -28,6 +28,7 @@ public class User {
     @Column(name = "address")
     private String address;
     @Column(name = "role")
+    @Enumerated(EnumType.ORDINAL)
     @ColumnDefault("0")
     private Role role;
     private LocalDateTime createTime;
