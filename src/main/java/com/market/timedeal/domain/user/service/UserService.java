@@ -7,6 +7,7 @@ import com.market.timedeal.domain.user.dto.SignUpDto;
 import com.market.timedeal.domain.user.exception.DuplicatedIdException;
 import com.market.timedeal.domain.user.repository.UserRepository;
 import com.market.timedeal.domain.user.util.PasswordEncrypter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -45,14 +46,14 @@ public class UserService {
     public User login(LoginDto user) {
         User findUser = userRepository.findByUserId(user.getUserId());
 
-        if (findUser == null) return null;
-        if (comparePassword(user.getPassword(), findUser.getPassword())) {
-            return findUser;
+        if (findUser == null
+                || !isMathPassword(user.getPassword(), findUser.getPassword())) {
+            return null;
         }
-        return null;
+        return findUser;
     }
 
-    private boolean comparePassword(String password, String hashedPassword) {
+    private boolean isMathPassword(String password, String hashedPassword) {
         return PasswordEncrypter.isMatch(password, hashedPassword);
     }
 

@@ -1,5 +1,7 @@
 package com.market.timedeal.domain.user.api;
 
+import com.market.timedeal.domain.user.domain.User;
+import com.market.timedeal.domain.user.dto.LoginDto;
 import com.market.timedeal.domain.user.dto.SignUpDto;
 import com.market.timedeal.domain.user.service.UserService;
 import com.market.timedeal.domain.user.dto.CustomResponseEntity;
@@ -19,12 +21,27 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<CustomResponseEntity> signUp(@RequestBody SignUpDto signUpDto){
+    public ResponseEntity<CustomResponseEntity> signUp(@RequestBody SignUpDto signUpDto) {
 
         userService.signUp(signUpDto);
         return ResponseEntity
-                        .status(HttpStatus.OK)
-                        .body(new CustomResponseEntity("회원가입에 성공했습니다."));
+                .status(HttpStatus.OK)
+                .body(new CustomResponseEntity("회원가입에 성공했습니다."));
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<CustomResponseEntity> login(@RequestBody LoginDto loginDto) {
+        User user = userService.login(loginDto);
+
+        if (user == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST).
+                    body(new CustomResponseEntity("아이디, 비밀번호를 확인하세요"));
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new CustomResponseEntity("로그인 성공", user));
     }
 
 
