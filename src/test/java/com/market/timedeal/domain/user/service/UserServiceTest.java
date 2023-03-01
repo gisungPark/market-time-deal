@@ -1,16 +1,12 @@
 package com.market.timedeal.domain.user.service;
 
-import com.market.timedeal.domain.user.domain.User;
-import com.market.timedeal.domain.user.dto.LoginDto;
-import com.market.timedeal.domain.user.dto.SignUpDto;
-import com.market.timedeal.domain.user.repository.UserRepository;
-import org.junit.jupiter.api.BeforeAll;
+import com.market.timedeal.domain.User;
+import com.market.timedeal.dto.LoginDto;
+import com.market.timedeal.repository.UserRepository;
+import com.market.timedeal.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

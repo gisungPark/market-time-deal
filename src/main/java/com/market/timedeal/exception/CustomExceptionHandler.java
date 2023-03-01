@@ -1,6 +1,6 @@
-package com.market.timedeal.domain.user.exception;
+package com.market.timedeal.exception;
 
-import com.market.timedeal.domain.user.dto.CustomResponseEntity;
+import com.market.timedeal.dto.CustomResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

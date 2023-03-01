@@ -1,6 +1,6 @@
-package com.market.timedeal.domain.user.dto;
+package com.market.timedeal.dto;
 
-import com.market.timedeal.domain.user.domain.Role;
+import com.market.timedeal.domain.Role;
 import lombok.Builder;
 import lombok.Data;
 

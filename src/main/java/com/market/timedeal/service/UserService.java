@@ -1,13 +1,12 @@
-package com.market.timedeal.domain.user.service;
+package com.market.timedeal.service;
 
-import com.market.timedeal.domain.user.domain.Role;
-import com.market.timedeal.domain.user.domain.User;
-import com.market.timedeal.domain.user.dto.LoginDto;
-import com.market.timedeal.domain.user.dto.SignUpDto;
-import com.market.timedeal.domain.user.exception.DuplicatedIdException;
-import com.market.timedeal.domain.user.repository.UserRepository;
-import com.market.timedeal.domain.user.util.PasswordEncrypter;
-import lombok.extern.slf4j.Slf4j;
+import com.market.timedeal.domain.Role;
+import com.market.timedeal.domain.User;
+import com.market.timedeal.dto.LoginDto;
+import com.market.timedeal.dto.SignUpDto;
+import com.market.timedeal.exception.DuplicatedIdException;
+import com.market.timedeal.repository.UserRepository;
+import com.market.timedeal.util.PasswordEncrypter;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

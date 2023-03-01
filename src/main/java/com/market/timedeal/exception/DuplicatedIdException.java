@@ -1,4 +1,4 @@
-package com.market.timedeal.domain.user.exception;
+package com.market.timedeal.exception;
 
 public class DuplicatedIdException extends RuntimeException {
     public DuplicatedIdException(String message) {

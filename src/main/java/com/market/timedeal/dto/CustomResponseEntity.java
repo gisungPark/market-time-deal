@@ -1,4 +1,4 @@
-package com.market.timedeal.domain.user.dto;
+package com.market.timedeal.dto;
 
 
 import lombok.Getter;

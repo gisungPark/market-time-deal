@@ -1,8 +1,8 @@
-package com.market.timedeal.domain.user.service;
+package com.market.timedeal.service;
 
-import com.market.timedeal.domain.user.domain.User;
-import com.market.timedeal.domain.user.repository.UserRepository;
-import com.market.timedeal.domain.user.util.PasswordEncrypter;
+import com.market.timedeal.domain.User;
+import com.market.timedeal.repository.UserRepository;
+import com.market.timedeal.util.PasswordEncrypter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.market.timedeal.domain.user.domain;
+package com.market.timedeal.domain;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;

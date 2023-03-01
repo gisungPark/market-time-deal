@@ -1,4 +1,4 @@
-package com.market.timedeal.domain.user.util;
+package com.market.timedeal.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

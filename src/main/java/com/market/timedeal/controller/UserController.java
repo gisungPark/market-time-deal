@@ -1,10 +1,10 @@
-package com.market.timedeal.domain.user.api;
+package com.market.timedeal.controller;
 
-import com.market.timedeal.domain.user.domain.User;
-import com.market.timedeal.domain.user.dto.LoginDto;
-import com.market.timedeal.domain.user.dto.SignUpDto;
-import com.market.timedeal.domain.user.service.UserService;
-import com.market.timedeal.domain.user.dto.CustomResponseEntity;
+import com.market.timedeal.domain.User;
+import com.market.timedeal.dto.LoginDto;
+import com.market.timedeal.dto.SignUpDto;
+import com.market.timedeal.service.UserService;
+import com.market.timedeal.dto.CustomResponseEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
