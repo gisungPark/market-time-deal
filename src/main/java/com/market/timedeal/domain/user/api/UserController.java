@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -31,7 +33,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<CustomResponseEntity> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<CustomResponseEntity> login(@RequestBody LoginDto loginDto, HttpSession httpSession) {
         User user = userService.login(loginDto);
 
         if (user == null) {
@@ -39,6 +41,7 @@ public class UserController {
                     .status(HttpStatus.BAD_REQUEST).
                     body(new CustomResponseEntity("아이디, 비밀번호를 확인하세요"));
         }
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new CustomResponseEntity("로그인 성공", user));

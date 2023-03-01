@@ -17,8 +17,11 @@ public class UserService {
 
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private LoginService loginService;
+
+    public UserService(UserRepository userRepository, LoginService loginService) {
         this.userRepository = userRepository;
+        this.loginService = loginService;
     }
 
     public void signUp(SignUpDto signUpDto) throws DuplicatedIdException {
@@ -44,18 +47,11 @@ public class UserService {
     }
 
     public User login(LoginDto user) {
-        User findUser = userRepository.findByUserId(user.getUserId());
 
-        if (findUser == null
-                || !isMathPassword(user.getPassword(), findUser.getPassword())) {
-            return null;
-        }
+        User findUser = loginService.login(user.getUserId(), user.getPassword());
+        if (findUser == null) return null;
+
         return findUser;
     }
-
-    private boolean isMathPassword(String password, String hashedPassword) {
-        return PasswordEncrypter.isMatch(password, hashedPassword);
-    }
-
 
 }
