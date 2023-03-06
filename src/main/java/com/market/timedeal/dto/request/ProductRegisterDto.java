@@ -4,7 +4,6 @@ import com.market.timedeal.domain.Category;
 import com.market.timedeal.domain.Product;
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
@@ -13,7 +12,7 @@ import javax.persistence.Enumerated;
 @Builder
 @ToString
 @AllArgsConstructor
-public class ProductDto {
+public class ProductRegisterDto {
     @Enumerated(EnumType.STRING)
     private Category category;
     private String name;

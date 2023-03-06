@@ -2,9 +2,11 @@ package com.market.timedeal.service;
 
 import com.market.timedeal.domain.Category;
 import com.market.timedeal.domain.Product;
-import com.market.timedeal.dto.request.ProductDto;
+import com.market.timedeal.dto.request.ProductRegisterDto;
 import com.market.timedeal.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public void registerProduct(ProductDto productDto) {
-        Product newProduct = productDto.of();
+    public void registerProduct(ProductRegisterDto productRegisterDto) {
+        Product newProduct = productRegisterDto.of();
         productRepository.saveAndFlush(newProduct);
     }
 
@@ -28,8 +30,8 @@ public class ProductService {
         return productRepository.findByCategory(category);
     }
 
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public Page<Product> findAll(PageRequest pageRequest) {
+        return productRepository.findAll(pageRequest);
     }
 
 }

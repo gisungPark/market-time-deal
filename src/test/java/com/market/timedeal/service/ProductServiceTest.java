@@ -2,16 +2,12 @@ package com.market.timedeal.service;
 
 import com.market.timedeal.domain.Category;
 import com.market.timedeal.domain.Product;
-import com.market.timedeal.dto.request.ProductDto;
-import org.junit.jupiter.api.BeforeEach;
+import com.market.timedeal.dto.request.ProductRegisterDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ProductServiceTest {
@@ -32,7 +28,7 @@ class ProductServiceTest {
 
     @Test
     public void 상품등록_테스트() {
-        ProductDto newProduct = ProductDto.builder()
+        ProductRegisterDto newProduct = ProductRegisterDto.builder()
                 .name("카카오")
                 .category(Category.FOOD)
                 .price(7000)

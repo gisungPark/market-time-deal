@@ -6,7 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@ToString
+@ToString(exclude = "password")
 @Entity
 @Getter
 @Builder
