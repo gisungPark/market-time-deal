@@ -47,5 +47,4 @@ public class UserController {
                 .body(new CustomResponseEntity("로그인 성공", user));
     }
 
-
 }

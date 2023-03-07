@@ -3,6 +3,7 @@ package com.market.timedeal.service;
 import com.market.timedeal.domain.Category;
 import com.market.timedeal.domain.Product;
 import com.market.timedeal.dto.request.ProductRegisterDto;
+import com.market.timedeal.exception.NotFoundException;
 import com.market.timedeal.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,10 @@ public class ProductService {
         productRepository.saveAndFlush(newProduct);
     }
 
+    public Product findByProductById(Long id){
+        return productRepository.findById(id).orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
+    }
+
     public Product findProductByName(String name) {
         return productRepository.findByName(name);
     }
@@ -33,5 +38,6 @@ public class ProductService {
     public Page<Product> findAll(PageRequest pageRequest) {
         return productRepository.findAll(pageRequest);
     }
+
 
 }

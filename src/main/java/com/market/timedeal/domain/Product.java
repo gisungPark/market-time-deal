@@ -5,7 +5,6 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
-@ToString
 @Entity
 @Getter
 @Builder
@@ -27,4 +26,9 @@ public class Product {
     @Column(name = "quantity")
     @ColumnDefault("0")
     private int quantity;
+
+    @Override
+    public String toString() {
+        return id +" : " + name +" ";
+    }
 }
