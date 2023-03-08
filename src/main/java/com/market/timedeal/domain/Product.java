@@ -22,7 +22,7 @@ public class Product {
     @Column(name = "name")
     private String name;
     @Column(name = "price")
-    private double price;
+    private int price;
     @Column(name = "quantity")
     @ColumnDefault("0")
     private int quantity;
@@ -30,5 +30,9 @@ public class Product {
     @Override
     public String toString() {
         return id +" : " + name +" ";
+    }
+
+    public void purchase(int quantity) {
+        this.quantity -= quantity;
     }
 }

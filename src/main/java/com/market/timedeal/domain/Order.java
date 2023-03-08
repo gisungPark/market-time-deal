@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -22,8 +23,10 @@ public class Order {
     @Column(name = "user_id")
     private Long userId;
     @ManyToOne
-    @Column(name = "product_id")
+    @JoinColumn(name = "product_id")
     private Product product;
+    @Column(name = "quantity")
+    private int quantity;
     @Column(name = "price")
     private int price;
     @Column(name = "order_dtm")

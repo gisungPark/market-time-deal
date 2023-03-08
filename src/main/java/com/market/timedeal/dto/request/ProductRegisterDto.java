@@ -16,7 +16,7 @@ public class ProductRegisterDto {
     @Enumerated(EnumType.STRING)
     private Category category;
     private String name;
-    private double price;
+    private int price;
     private int quantity;
 
     public Product of() {

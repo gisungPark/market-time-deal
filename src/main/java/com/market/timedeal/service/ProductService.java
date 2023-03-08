@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class ProductService {
         productRepository.saveAndFlush(newProduct);
     }
 
-    public Product findByProductById(Long id){
+    public Product findByProductById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new NotFoundException("해당 상품을 찾을 수 없습니다."));
     }
 
@@ -37,6 +38,18 @@ public class ProductService {
 
     public Page<Product> findAll(PageRequest pageRequest) {
         return productRepository.findAll(pageRequest);
+    }
+
+    public boolean decreaseProductQuantity(Product product, int quantity) {
+        Product findProduct = findByProductById(product.getId());
+
+        if (product.getQuantity() < quantity) {
+            return false;
+        }
+
+        findProduct.purchase(quantity);
+        productRepository.saveAndFlush(findProduct);
+        return true;
     }
 
 

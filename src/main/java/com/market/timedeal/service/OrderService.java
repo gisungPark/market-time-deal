@@ -3,15 +3,14 @@ package com.market.timedeal.service;
 import com.market.timedeal.domain.Order;
 import com.market.timedeal.domain.Product;
 import com.market.timedeal.domain.User;
+import com.market.timedeal.dto.request.OrderRequest;
 import com.market.timedeal.exception.NotFoundException;
 import com.market.timedeal.repository.OrderRepository;
+import com.market.timedeal.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -21,29 +20,30 @@ public class OrderService {
     private OrderRepository orderRepository;
     private ProductService productService;
 
-    public void checkout(List<Order> orders, User customer) {
+    private UserRepository userRepository;
 
-        for (Order order : orders) {
-            Product product = order.getProduct();
-            if (isOrder(product)) {
-                //todo. 구매진행!
-                orderRepository.save(order);
-            }
-        }
-    }
+    @Transactional
+    public boolean checkout(OrderRequest order) {
 
-    public boolean isOrder(Product product) {
-        try {
-            Product findProduct = productService.findByProductById(product.getId());
-            if (findProduct.getQuantity() == 0) {
-                log.info("{} 의 재고가 부족합니다.", product);
-                return false;
-            }
-        } catch (NotFoundException exception) {
-            log.error("{} 을 찾을 수 없습니다.", product);
+        Product product = order.getProduct();
+
+        if (!purchaseProduct(order)) {
+            log.info("{} 구매 실패", product.getName());
             return false;
         }
+        log.info("{} 구매 성공", product.getName());
+
+        int totalPrice = product.getPrice() * order.getQuantity();
+
+        User customer = userRepository.findById(1L).orElseThrow(() -> new NotFoundException("해당 사용자를 찾을 수 없습니다."));
+        Order newOrder = order.createOrderEntity(customer, totalPrice);
+
+        orderRepository.saveAndFlush(newOrder);
         return true;
+    }
+
+    public boolean purchaseProduct(OrderRequest order) {
+        return productService.decreaseProductQuantity(order.getProduct(), order.getQuantity());
     }
 
 
