@@ -35,4 +35,8 @@ public class Product {
     public void purchase(int quantity) {
         this.quantity -= quantity;
     }
+
+    public void updateQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

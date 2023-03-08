@@ -40,6 +40,10 @@ public class ProductService {
         return productRepository.findAll(pageRequest);
     }
 
+    public void updateProduct(Product product) {
+        productRepository.save(product);
+    }
+
     public boolean decreaseProductQuantity(Product product, int quantity) {
         Product findProduct = findByProductById(product.getId());
 
