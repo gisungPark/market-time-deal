@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +43,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public boolean decreaseProductQuantity(Product product, int quantity) {
+    public synchronized boolean decreaseProductQuantity(Product product, int quantity) {
         Product findProduct = findByProductById(product.getId());
 
         if (product.getQuantity() < quantity) {

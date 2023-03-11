@@ -50,6 +50,7 @@ class OrderServiceTest {
         Product product = productService.findByProductById(1L);
         int quantity = product.getQuantity();
 
+        System.out.println("수량 : quantity");
         ExecutorService executorService = Executors.newFixedThreadPool(32);
         CountDownLatch countDownLatch = new CountDownLatch(quantity);
         for (int i = 0; i < quantity; i++) {
