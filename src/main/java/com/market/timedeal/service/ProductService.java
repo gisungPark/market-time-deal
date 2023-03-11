@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,6 +46,19 @@ public class ProductService {
 
     public synchronized boolean decreaseProductQuantity(Product product, int quantity) {
         Product findProduct = findByProductById(product.getId());
+
+        if (product.getQuantity() < quantity) {
+            return false;
+        }
+
+        findProduct.purchase(quantity);
+        productRepository.saveAndFlush(findProduct);
+        return true;
+    }
+
+    @Transactional
+    public boolean decreaseProductQuantityWithPessimistic(Product product, int quantity) {
+        Product findProduct = productRepository.findByIdWithPessimisticLock(product.getId());
 
         if (product.getQuantity() < quantity) {
             return false;
