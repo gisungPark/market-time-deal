@@ -89,4 +89,28 @@ class OrderServiceTest {
         assertEquals(0, productService.findByProductById(1L).getQuantity());
     }
 
+
+    @Test
+    @DisplayName("상품 재고 감소 - MySQL Named Lock 사용")
+    public void 상품재고감소_테스트04() throws InterruptedException {
+
+        Product product = productService.findByProductById(1L);
+        int quantity = product.getQuantity();
+
+        System.out.println("수량 :" + quantity);
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch countDownLatch = new CountDownLatch(quantity);
+        for (int i = 0; i < quantity; i++) {
+            executorService.submit(() -> {
+                try {
+                    productService.decreaseProductQuantityWithNamedLock(product, 1);
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
+        }
+        countDownLatch.await();
+        assertEquals(0, productService.findByProductById(1L).getQuantity());
+    }
+
 }

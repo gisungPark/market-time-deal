@@ -4,11 +4,13 @@ import com.market.timedeal.domain.Category;
 import com.market.timedeal.domain.Product;
 import com.market.timedeal.dto.request.ProductRegisterDto;
 import com.market.timedeal.exception.NotFoundException;
+import com.market.timedeal.repository.LockRepository;
 import com.market.timedeal.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+
+    private final LockRepository lockRepository;
 
     public void registerProduct(ProductRegisterDto productRegisterDto) {
         Product newProduct = productRegisterDto.of();
@@ -66,6 +70,24 @@ public class ProductService {
 
         findProduct.purchase(quantity);
         productRepository.saveAndFlush(findProduct);
+        return true;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public boolean decreaseProductQuantityWithNamedLock(Product product, int quantity) {
+
+        try {
+            lockRepository.getLock(product.getId().toString());         //  Lock 획득
+
+            Product findProduct = productRepository.findByIdWithPessimisticLock(product.getId());
+            if (product.getQuantity() < quantity) { return false; }
+
+            findProduct.purchase(quantity);
+            productRepository.saveAndFlush(findProduct);
+
+        } finally {
+            lockRepository.releaseLock(product.getId().toString());     // Lock 반환
+        }
         return true;
     }
 
